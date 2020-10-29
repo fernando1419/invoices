@@ -16,7 +16,8 @@ class UsersSeeder extends Seeder
 			'first_name'          => 'test_first_name',
 		   'last_name'         => 'test_last_name',
 		   'dni'               => '11111111',
-		   'file'              => '222222',
+		 'file'                => '222222',
+		 'birth_date'          => '2000-05-28',
 		   'email'             => 'test@test.com',
 		   'email_verified_at' => now(),
 		   'password'          => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
