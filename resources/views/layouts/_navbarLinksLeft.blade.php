@@ -1,0 +1,17 @@
+<ul class="navbar-nav mr-auto">
+   <li class="nav-item">
+      <a class="nav-link {{ Route::is('users.*') ? 'active' : '' }}" href="{{ route('users.index') }}">{{ __('Users') }}</a>
+   </li>
+   <li class="nav-item">
+      <a class="nav-link" href="#">{{ __('Clients') }}</a>
+   </li>
+   <li class="nav-item">
+      <a class="nav-link" href="#">{{ __('Providers') }}</a>
+   </li>
+   <li class="nav-item">
+      <a class="nav-link" href="#">{{ __('Products') }}</a>
+   </li>
+   <li class="nav-item">
+      <a class="nav-link" href="#">{{ __('Invoices') }}</a>
+   </li>
+</ul>
