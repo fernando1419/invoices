@@ -9,7 +9,7 @@
       <a class="nav-link {{ Route::is('providers.*') ? 'active bg-light' : '' }}" href="{{ route('providers.index') }}">{{ __('Providers') }}</a>
    </li>
    <li class="nav-item">
-      <a class="nav-link" href="#">{{ __('Products') }}</a>
+      <a class="nav-link {{ Route::is('products.*') ? 'active bg-light' : '' }}" href="{{ route('products.index') }}">{{ __('Products') }}</a>
    </li>
    <li class="nav-item">
       <a class="nav-link" href="#">{{ __('Invoices') }}</a>
