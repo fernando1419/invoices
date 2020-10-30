@@ -20,8 +20,8 @@ use Illuminate\Support\Str;
 $factory->define(User::class, function (Faker $faker)
 {
 	return [
-		'first_name'          => $faker->name,
-		'last_name'           => $faker->name,
+		'first_name'          => $faker->firstName,
+		'last_name'           => $faker->lastName,
 		'dni'                 => $faker->randomNumber(8), // 79907610
 	   'file'              => $faker->randomNumber(6),
 	   'birth_date'        => $faker->date(),
