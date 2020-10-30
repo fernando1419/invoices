@@ -1,6 +1,6 @@
 <ul class="navbar-nav mr-auto">
    <li class="nav-item">
-      <a class="nav-link {{ Route::is('users.*') ? 'active' : '' }}" href="{{ route('users.index') }}">{{ __('Users') }}</a>
+      <a class="nav-link {{ Route::is('users.*') ? 'active bg-light' : '' }}" href="{{ route('users.index') }}">{{ __('Users') }}</a>
    </li>
    <li class="nav-item">
       <a class="nav-link" href="#">{{ __('Clients') }}</a>
