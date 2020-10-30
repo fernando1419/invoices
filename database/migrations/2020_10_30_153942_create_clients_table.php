@@ -20,7 +20,7 @@ class CreateClientsTable extends Migration
 			$table->string('last_name');
 			$table->string('dni');
 			$table->date('birth_date');
-			$table->string('credit_card_number');
+			$table->string('credit_card_number')->nullable();
 			$table->timestamps();
 		});
 	}
