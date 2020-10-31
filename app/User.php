@@ -47,6 +47,16 @@ class User extends Authenticatable
 	}
 
 	/**
+	 * getter fullname
+	 *
+	 * @return string
+	 */
+	public function getFullNameAttribute(): string
+	{
+		return "{$this->last_name}, {$this->first_name}";
+	}
+
+	/**
 	 * Validation rules for User Model
 	 *
 	 * @param mixed $ignoreId Id to Ignore on update requests.
@@ -64,5 +74,15 @@ class User extends Authenticatable
 		 'password'                => 'confirmed|min:6|required_with:password_confirmation' . (is_null($ignoreId) ? '|required' : '|sometimes|nullable'), // required on insert and option on update
 		 'password_confirmation'   => 'sometimes|required_with:password',
 	  ];
+	}
+
+	/**
+	 * HasMany Invoices
+	 *
+	 * @return void
+	 */
+	public function invoices()
+	{
+		return $this->hasMany('App\Invoice');
 	}
 }

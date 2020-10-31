@@ -48,7 +48,10 @@ class InvoiceController extends Controller
 	 */
 	public function show(Invoice $invoice)
 	{
-		//
+		$invoice          = Invoice::with(['products', 'user'])->find($invoice->id); // eager loading.
+		$productsQuantity = $invoice->products->sum('pivot.quantity');
+
+		return view('invoices.show', compact('invoice', 'productsQuantity'));
 	}
 
 	/**

@@ -15,6 +15,11 @@ class Client extends Model
 		'first_name', 'last_name', 'dni', 'birth_date', 'credit_card_number'
    ];
 
+	/**
+	 * getter fullname
+	 *
+	 * @return string
+	 */
 	public function getFullNameAttribute(): string
 	{
 		return "{$this->last_name}, {$this->first_name}";

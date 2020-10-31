@@ -18,8 +18,8 @@
    <div class="card">
 
       <div class="card-header">
-         <h4 style="display:inline-block"> List of invoices </h4>
-         <a href="{{ route('invoices.create') }} " class="btn btn-dark btn-sm float-right">Add New invoice</a>
+         <h4 style="display:inline-block"> List of Invoices </h4>
+         <a href="{{ route('invoices.create') }} " class="btn btn-dark btn-sm float-right">Add New Invoice</a>
       </div>
 
       <div class="card-body table-responsive">
@@ -39,12 +39,12 @@
                   @foreach ($invoices as $invoice)
                      <tr>
                         <td> {{ $invoice->number }} </td>
-                        <td> {{ $invoice->date }} </td>
+                        <td> {{ $invoice->date->diffForHumans() }} </td>
                         <td> $ {{ $invoice->total }} </td>
                         <td> {{ $invoice->payment_method }} </td>
                         <td> {{ $invoice->client->full_name }} </td>
                         <td>
-                           <a href="{{ route('invoices.show', $invoice) }} " class="btn btn-danger btn-sm">Details...</a>
+                           <a href="{{ route('invoices.show', $invoice) }} " class="btn btn-success btn-sm">Show</a>
                         </td>
                      </tr>
                   @endforeach
