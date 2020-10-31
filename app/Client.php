@@ -13,5 +13,20 @@ class Client extends Model
 	 */
 	protected $fillable = [
 		'first_name', 'last_name', 'dni', 'birth_date', 'credit_card_number'
-	];
+   ];
+
+	public function getFullNameAttribute(): string
+	{
+		return "{$this->last_name}, {$this->first_name}";
+	}
+
+	/**
+	 * HasMany Invoices
+	 *
+	 * @return void
+	 */
+	public function invoices()
+	{
+		return $this->hasMany('App\Invoice');
+	}
 }

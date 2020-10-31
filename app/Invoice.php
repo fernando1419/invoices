@@ -24,4 +24,14 @@ class Invoice extends Model
 	{
 		return $this->belongsToMany('App\Product')->withTimestamps();
 	}
+
+	/**
+	 * belognsTo Client
+	 *
+	 * @return void
+	 */
+	public function client()
+	{
+		return $this->belongsTo('App\Client');
+	}
 }

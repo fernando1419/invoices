@@ -12,6 +12,6 @@
       <a class="nav-link {{ Route::is('products.*') ? 'active bg-light' : '' }}" href="{{ route('products.index') }}">{{ __('Products') }}</a>
    </li>
    <li class="nav-item">
-      <a class="nav-link" href="#">{{ __('Invoices') }}</a>
+      <a class="nav-link {{ Route::is('invoices.*') ? 'active bg-light' : '' }}" href="{{ route('invoices.index') }}">{{ __('Invoices') }}</a>
    </li>
 </ul>
