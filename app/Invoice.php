@@ -14,4 +14,14 @@ class Invoice extends Model
 	protected $fillable = [
 	  'number', 'date', 'subtotal', 'discount_rate', 'total', 'payment_method', 'client_id', 'user_id'
    ];
+
+	/**
+	 * belongsToMany Products
+	 *
+	 * @return void
+	 */
+	public function products()
+	{
+		return $this->belongsToMany('App\Product')->withTimestamps();
+	}
 }

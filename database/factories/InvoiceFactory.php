@@ -13,7 +13,7 @@ $factory->define(Invoice::class, function (Faker $faker)
 	   'subtotal'       => 0,
 	   'discount_rate'  => 0,
 	   'total'          => 0,
-	   'payment_method' => $faker->randomElement(['cash', 'debit', 'credit-card', 'wire-transfer', 'check']),
+	   'payment_method' => $faker->randomElement(['cash', 'debit-card', 'credit-card', 'wire-transfer', 'bank-check']),
 	   'client_id'      => $faker->numberBetween(1, 21),
 	   'user_id'        => $faker->numberBetween(1, 21),
    ];

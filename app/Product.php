@@ -35,12 +35,22 @@ class Product extends Model
 	}
 
 	/**
-	 * belongs to a provider
+	 * belongsTo a provider
 	 *
 	 * @return void
 	 */
 	public function provider()
 	{
 		return $this->belongsTo('App\Provider');
+	}
+
+	/**
+	 * belongsToMany Invoices
+	 *
+	 * @return void
+	 */
+	public function invoices()
+	{
+		return $this->belongsToMany('App\Invoice')->withTimestamps();
 	}
 }
