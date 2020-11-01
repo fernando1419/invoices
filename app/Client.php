@@ -16,6 +16,13 @@ class Client extends Model
    ];
 
 	/**
+	 * appends getter
+	 *
+	 * @var array
+	 */
+	protected $appends = ['full_name'];
+
+	/**
 	 * getter fullname
 	 *
 	 * @return string

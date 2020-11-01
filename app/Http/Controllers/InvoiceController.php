@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Client;
 use App\Invoice;
-use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class InvoiceController extends Controller
 {
@@ -27,7 +28,9 @@ class InvoiceController extends Controller
 	 */
 	public function create()
 	{
-		//
+		$clients = Client::all(['id', 'first_name', 'last_name']);
+
+		return view('invoices.create', compact('clients'));
 	}
 
 	/**
@@ -38,7 +41,12 @@ class InvoiceController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		//
+		return $request->validate([
+		   'number'         => 'required|digits:9',
+		   'date'           => 'required|date|after_or_equal:today',
+		   'payment_method' => 'required',
+		   'client_id'      => 'required',
+	  ]);
 	}
 
 	/**
