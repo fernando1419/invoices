@@ -28,3 +28,5 @@ Route::resource('clients', 'ClientController');
 Route::resource('providers', 'ProviderController');
 Route::resource('products', 'ProductController');
 Route::resource('invoices', 'InvoiceController');
+
+Route::get('invoices/{invoice}/createPDF', 'InvoiceController@createPDF')->name('invoices.createPDF');

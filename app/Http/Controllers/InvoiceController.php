@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Invoice;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 
 class InvoiceController extends Controller
@@ -48,10 +49,15 @@ class InvoiceController extends Controller
 	 */
 	public function show(Invoice $invoice)
 	{
-		$invoice          = Invoice::with(['products', 'user'])->find($invoice->id); // eager loading.
-		$productsQuantity = $invoice->products->sum('pivot.quantity');
+		return view('invoices.show', $this->getInvoiceData($invoice));
+	}
 
-		return view('invoices.show', compact('invoice', 'productsQuantity'));
+	// Generate PDF
+	public function createPDF(Invoice $invoice)
+	{
+		$pdf = PDF::loadView('invoices._body', $this->getInvoiceData($invoice));
+
+		return $pdf->download('invoice.pdf');
 	}
 
 	/**
@@ -86,5 +92,16 @@ class InvoiceController extends Controller
 	public function destroy(Invoice $invoice)
 	{
 		//
+	}
+
+	protected function getInvoiceData(Invoice $invoice)
+	{
+		$invoice          = Invoice::with(['products', 'user'])->find($invoice->id); // eager loading.
+		$productsQuantity = $invoice->products->sum('pivot.quantity');
+
+		return [
+		 'invoice'          => $invoice,
+		 'productsQuantity' => $productsQuantity
+	  ];
 	}
 }
