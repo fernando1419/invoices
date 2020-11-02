@@ -11,11 +11,16 @@ class ProductController extends Controller
 	/**
 	 * Display a listing of the resource.
 	 *
+	 * @param Request $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{
 		$products = Product::latest()->paginate(8);
+
+		if ($request->ajax()) { // used by Axios
+			return Product::latest()->get();
+		}
 
 		return view('products.index', compact('products'));
 	}

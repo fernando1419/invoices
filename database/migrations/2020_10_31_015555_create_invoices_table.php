@@ -18,9 +18,9 @@ class CreateInvoicesTable extends Migration
 			$table->id();
 			$table->string('number');
 			$table->timestamp('date');
-			$table->decimal('subtotal', 8, 2);
-			$table->decimal('discount_rate', 3, 2);
-			$table->decimal('total', 8, 2);
+			$table->decimal('subtotal', 8, 2)->nullable();
+			$table->decimal('discount_rate', 3, 2)->nullable()->default(0);
+			$table->decimal('total', 8, 2)->nullable();
 			$table->string('payment_method');
 			$table->foreignId('client_id'); // Alias of  $table->unsignedBigInteger('client_id').
 			$table->foreignId('user_id'); // Alias of  $table->unsignedBigInteger('user_id').

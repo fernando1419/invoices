@@ -15,6 +15,7 @@
          <form action="{{ route('invoices.store') }}" method="POST">
             @csrf
 
+            <!-- Invoice Header -->
             <div class="row">
 
                <!-- Invoice Data -->
@@ -77,9 +78,15 @@
                         <p class="text-danger">{{ $errors->first('client_id') }} </p>
                      @enderror
                   </div>
+
                </div>
 
             </div>
+
+            <hr />
+
+            <!-- Invoice Detail (Product Lines) -->
+            <invoice-product-list></invoice-product-list>
 
             <button type="submit" class="btn btn-primary btn-sm float-right"> Create Invoice </button>
 

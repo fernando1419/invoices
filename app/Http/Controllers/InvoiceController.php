@@ -41,6 +41,8 @@ class InvoiceController extends Controller
 	 */
 	public function store(Request $request)
 	{
+		return $request;
+
 		return $request->validate([
 		   'number'         => 'required|digits:9',
 		   'date'           => 'required|date|after_or_equal:today',
