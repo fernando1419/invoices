@@ -47,6 +47,18 @@
 </div>
 
 <div class="form-group">
+   <label for="stock">Stock (units)</label>
+   <input class="form-control form-control-sm @error('stock') is-invalid @enderror"
+         type="number"
+         name="stock"
+         placeholder="Stock available"
+         value="{{ old('stock', $product->stock ?? '') }}">
+   @error('stock')
+      <p class="text-danger"> {{ $errors->first('stock') }} </p>
+   @enderror
+</div>
+
+<div class="form-group">
     <label for="provider_id">Provider</label>
     <select name="provider_id" class="form-control form-control-sm">
         <option value=""> Select a provider... </option>

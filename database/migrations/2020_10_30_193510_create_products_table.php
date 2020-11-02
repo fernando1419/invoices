@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
 			$table->string('trademark');
 			$table->date('due_date');
 			$table->decimal('unit_price', 8, 2);
+			$table->integer('stock')->default(0);
 			$table->foreignId('provider_id'); // Alias of  $table->unsignedBigInteger('provider_id').
 			$table->timestamps();
 

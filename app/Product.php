@@ -11,7 +11,7 @@ class Product extends Model
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['name', 'trademark', 'due_date', 'unit_price', 'provider_id'];
+	protected $fillable = ['name', 'trademark', 'due_date', 'unit_price', 'stock', 'provider_id'];
 
 	/**
 	 * Validation rules
@@ -21,6 +21,7 @@ class Product extends Model
 	   'trademark'   => 'required|min:3|max:255',
 	   'due_date'    => 'required|date|after_or_equal:today',
 	   'unit_price'  => 'required|numeric|gt:0',
+	   'stock'       => 'required|numeric|gte:0',
 	   'provider_id' => 'required',
    ];
 
