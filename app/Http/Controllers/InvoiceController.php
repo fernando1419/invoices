@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Client;
 use App\Invoice;
+use App\Product;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\DB;
 
 class InvoiceController extends Controller
 {
@@ -41,14 +44,23 @@ class InvoiceController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		return $request;
+		$request->validate([
+		   'number'                => 'required|digits:9|unique:invoices',
+		   'date'                  => 'date|after_or_equal:today',
+		   'payment_method'        => 'nullable',
+		   'client_id'             => 'integer',
+		   'products.*.product_id' => 'required|integer|min:1',
+		   'products.*.unit_price' => 'required|numeric|min:1',
+		   'products.*.quantity'   => 'required|integer|min:1'
+	   ]);
 
-		return $request->validate([
-		   'number'         => 'required|digits:9',
-		   'date'           => 'required|date|after_or_equal:today',
-		   'payment_method' => 'required',
-		   'client_id'      => 'required',
-	  ]);
+		try {
+			$this->handleInvoice($request);
+		} catch (Exception $e) {
+			return false;
+		}
+
+		return response()->json(['created' => true]);
 	}
 
 	/**
@@ -113,5 +125,34 @@ class InvoiceController extends Controller
 		 'invoice'          => $invoice,
 		 'productsQuantity' => $productsQuantity
 	  ];
+	}
+
+	/**
+	 * Insert a new Invoice using a transaction.
+	 *
+	 * @param mixed $request
+	 * @return void
+	 */
+	protected function handleInvoice($request)
+	{
+		DB::transaction(function () use ($request)
+		{
+			$invoiceData = array_merge($request->except('products'), ['user_id' => auth()->user()->id]);
+			$newInvoice  = Invoice::create($invoiceData); // header
+
+			$productsArray = json_decode(json_encode($request->products), true); // product details
+			$totalInvoice  = 0;
+			foreach ($productsArray as $product) {
+				$product_id       = $product['product_id'];
+				$unit_price       = $product['unit_price'];
+				$quantity         = $product['quantity'];
+				$totalInvoice += $unit_price * $quantity;
+
+				$newInvoice->products()->attach($product_id, ['quantity' => $quantity, 'price' => $unit_price]); // insert invoice product line item.
+			Product::findOrFail($product_id)->decrement('stock', $quantity); // update product stock.
+			}
+
+			$newInvoice->update(['subtotal' => $totalInvoice, 'total' => $totalInvoice]);
+		});
 	}
 }

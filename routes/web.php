@@ -32,3 +32,7 @@ Route::middleware(['auth'])->group(function ()
 	Route::resource('invoices', 'InvoiceController');
 	Route::get('invoices/{invoice}/createPDF', 'InvoiceController@createPDF')->name('invoices.createPDF');
 });
+
+Route::get('/test', function ()
+{
+});
