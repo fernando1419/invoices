@@ -13,36 +13,33 @@
 
             <hr />
 
-            <invoice-search-product
-               :formErrors="errors"
-               :selectedProducts="form.products"
-            ></invoice-search-product>
+            <h5>Select products to include in detail list</h5>
+            <invoice-search-product :selectedProducts="form.products"></invoice-search-product>
 
             <hr />
-
-            <!-- <div v-if="errors && errors.products_empty">
-               <p class="alert alert-danger">
-                  {{ errors.product_empty[0] }}
-               </p>
-            </div> -->
 
             <!-- Invoice Detail (Product Lines) -->
             <div class="row pl-3">
                <h5>List of choosen products</h5>
             </div>
-            <div class="row bg-light mb-2">
-               <div class="col-5"> Product Name </div>
-               <div class="col-2"> Unit Price $ </div>
-               <div class="col-2"> Quantity </div>
-               <div class="col-2"> Sub Total $ </div>
-            </div>
-
-            <invoice-product v-for="(product, index) in form.products" :key="index"
-                             :formInvoice="product"
-                             :formErrors="errors"
-                             :productIndex="index"
-                             @delete="deleteProduct(index)">
-            </invoice-product>
+            <table class="table table-condensed">
+               <thead>
+                  <tr>
+                     <th> Product Name </th>
+                     <th> Unit Price $ </th>
+                     <th> Quantity </th>
+                     <th> SubTotal $ </th>
+                     <th> Action </th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <invoice-product v-for="(product, index) in form.products" :key="index" :formInvoice="product"
+                              :formErrors="errors"
+                              :productIndex="index"
+                              @delete="deleteProduct(index)">
+                  </invoice-product>
+               </tbody>
+            </table>
 
             <div class="row">
                <div class="col-6 pt-2">

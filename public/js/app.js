@@ -1996,9 +1996,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2169,22 +2166,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['formInvoice', 'allSelectedProducts', 'formErrors', 'productIndex'],
   data: function data() {
-    return {
-      unit_price: 0,
-      quantity: 1
+    return {// unit_price: 0,
+      // quantity: 1,
     };
   },
   methods: {
@@ -2252,7 +2238,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['formErrors', 'selectedProducts'],
+  props: ['selectedProducts'],
   data: function data() {
     return {
       products: [],
@@ -37958,34 +37944,39 @@ var render = function() {
           _vm._v(" "),
           _c("hr"),
           _vm._v(" "),
+          _c("h5", [_vm._v("Select products to include in detail list")]),
+          _vm._v(" "),
           _c("invoice-search-product", {
-            attrs: {
-              formErrors: _vm.errors,
-              selectedProducts: _vm.form.products
-            }
+            attrs: { selectedProducts: _vm.form.products }
           }),
           _vm._v(" "),
           _c("hr"),
           _vm._v(" "),
           _vm._m(1),
           _vm._v(" "),
-          _vm._m(2),
-          _vm._v(" "),
-          _vm._l(_vm.form.products, function(product, index) {
-            return _c("invoice-product", {
-              key: index,
-              attrs: {
-                formInvoice: product,
-                formErrors: _vm.errors,
-                productIndex: index
-              },
-              on: {
-                delete: function($event) {
-                  return _vm.deleteProduct(index)
-                }
-              }
-            })
-          }),
+          _c("table", { staticClass: "table table-condensed" }, [
+            _vm._m(2),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              _vm._l(_vm.form.products, function(product, index) {
+                return _c("invoice-product", {
+                  key: index,
+                  attrs: {
+                    formInvoice: product,
+                    formErrors: _vm.errors,
+                    productIndex: index
+                  },
+                  on: {
+                    delete: function($event) {
+                      return _vm.deleteProduct(index)
+                    }
+                  }
+                })
+              }),
+              1
+            )
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-6 pt-2" }, [
@@ -38010,7 +38001,7 @@ var render = function() {
             [_vm._v(" Create Invoice ")]
           )
         ],
-        2
+        1
       )
     ])
   ])
@@ -38036,14 +38027,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row bg-light mb-2" }, [
-      _c("div", { staticClass: "col-5" }, [_vm._v(" Product Name ")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-2" }, [_vm._v(" Unit Price $ ")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-2" }, [_vm._v(" Quantity ")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-2" }, [_vm._v(" Sub Total $ ")])
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v(" Product Name ")]),
+        _vm._v(" "),
+        _c("th", [_vm._v(" Unit Price $ ")]),
+        _vm._v(" "),
+        _c("th", [_vm._v(" Quantity ")]),
+        _vm._v(" "),
+        _c("th", [_vm._v(" SubTotal $ ")]),
+        _vm._v(" "),
+        _c("th", [_vm._v(" Action ")])
+      ])
     ])
   }
 ]
@@ -38293,106 +38288,131 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "row" }, [
-    _c("div", { staticClass: "col-5" }, [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model.trim",
-            value: _vm.formInvoice.name,
-            expression: "formInvoice.name",
-            modifiers: { trim: true }
-          }
-        ],
-        staticClass: "form-control form-control-sm",
+  return _c("tr", [
+    _c(
+      "td",
+      {
+        staticClass: "table-name",
         class: {
           "is-invalid":
             _vm.formErrors["products." + _vm.productIndex + ".product_id"]
-        },
-        attrs: { type: "text", placeholder: "Product", readonly: "" },
-        domProps: { value: _vm.formInvoice.name },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
+        }
+      },
+      [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model.trim",
+              value: _vm.formInvoice.name,
+              expression: "formInvoice.name",
+              modifiers: { trim: true }
             }
-            _vm.$set(_vm.formInvoice, "name", $event.target.value.trim())
+          ],
+          staticClass: "form-control form-control-sm",
+          attrs: { type: "text", placeholder: "Product", readonly: "" },
+          domProps: { value: _vm.formInvoice.name },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.formInvoice, "name", $event.target.value.trim())
+            },
+            blur: function($event) {
+              return _vm.$forceUpdate()
+            }
+          }
+        })
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "td",
+      {
+        staticClass: "table-name",
+        class: {
+          "is-invalid":
+            _vm.formErrors["products." + _vm.productIndex + ".unit_price"]
+        }
+      },
+      [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.formInvoice.unit_price,
+              expression: "formInvoice.unit_price"
+            }
+          ],
+          staticClass: "form-control form-control-sm",
+          attrs: { type: "number", placeholder: "unit_price", readonly: "" },
+          domProps: { value: _vm.formInvoice.unit_price },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.formInvoice, "unit_price", $event.target.value)
+            }
+          }
+        })
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "td",
+      {
+        staticClass: "table-name",
+        class: {
+          "is-invalid":
+            _vm.formErrors["products." + _vm.productIndex + ".quantity"]
+        }
+      },
+      [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.formInvoice.quantity,
+              expression: "formInvoice.quantity"
+            }
+          ],
+          staticClass: "form-control form-control-sm",
+          attrs: {
+            type: "number",
+            min: "1",
+            placeholder: "Quantity",
+            readonly: ""
           },
-          blur: function($event) {
-            return _vm.$forceUpdate()
-          }
-        }
-      })
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "col-2" }, [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.formInvoice.unit_price,
-            expression: "formInvoice.unit_price"
-          }
-        ],
-        staticClass: "form-control form-control-sm",
-        attrs: { type: "number", placeholder: "unit_price", readonly: "" },
-        domProps: { value: _vm.formInvoice.unit_price },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
+          domProps: { value: _vm.formInvoice.quantity },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.formInvoice, "quantity", $event.target.value)
             }
-            _vm.$set(_vm.formInvoice, "unit_price", $event.target.value)
           }
-        }
-      })
-    ]),
+        })
+      ]
+    ),
     _vm._v(" "),
-    _c("div", { staticClass: "col-1" }, [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.formInvoice.quantity,
-            expression: "formInvoice.quantity"
-          }
-        ],
-        staticClass: "form-control form-control-sm",
-        attrs: {
-          type: "number",
-          min: "1",
-          placeholder: "Quantity",
-          readonly: ""
-        },
-        domProps: { value: _vm.formInvoice.quantity },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.$set(_vm.formInvoice, "quantity", $event.target.value)
-          }
-        }
-      })
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "col-2" }, [
-      _c("p", [
-        _vm._v(
-          "$ " +
-            _vm._s(
-              _vm._f("currency")(
-                _vm.formInvoice.quantity * _vm.formInvoice.unit_price
-              )
+    _c("td", { staticClass: "table-name" }, [
+      _vm._v(
+        "\n      $ " +
+          _vm._s(
+            _vm._f("currency")(
+              _vm.formInvoice.quantity * _vm.formInvoice.unit_price
             )
-        )
-      ])
+          ) +
+          "\n   "
+      )
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "col-1" }, [
+    _c("td", { staticClass: "table-name" }, [
       _c(
         "button",
         {
@@ -38427,153 +38447,156 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("h5", [_vm._v("Select products to include in detail list")]),
-    _vm._v(" "),
+  return _c("table", { staticClass: "table table-condensed" }, [
     _vm._m(0),
     _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-4" }, [
-        _c(
-          "select",
-          {
+    _c("tbody", [
+      _c("tr", [
+        _c("td", { staticClass: "table-name" }, [
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.selectedProductId,
+                  expression: "selectedProductId"
+                }
+              ],
+              staticClass: "form-control form-control-sm",
+              on: {
+                change: [
+                  function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.selectedProductId = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  },
+                  function($event) {
+                    return _vm.getProductData()
+                  }
+                ]
+              }
+            },
+            _vm._l(_vm.products, function(product, index) {
+              return _c(
+                "option",
+                { key: index, domProps: { value: product.id } },
+                [
+                  _vm._v(
+                    "\n                  " +
+                      _vm._s(
+                        "Product: " +
+                          product.name +
+                          "  Price: $ " +
+                          product.unit_price +
+                          " Index: " +
+                          index
+                      ) +
+                      "\n               "
+                  )
+                ]
+              )
+            }),
+            0
+          )
+        ]),
+        _vm._v(" "),
+        _c("td", { staticClass: "table-name" }, [
+          _c("input", {
             directives: [
               {
                 name: "model",
-                rawName: "v-model",
-                value: _vm.selectedProductId,
-                expression: "selectedProductId"
+                rawName: "v-model.number",
+                value: _vm.unit_price,
+                expression: "unit_price",
+                modifiers: { number: true }
               }
             ],
             staticClass: "form-control form-control-sm",
+            attrs: {
+              type: "number",
+              name: "unit_price",
+              placeholder: "unit_price"
+            },
+            domProps: { value: _vm.unit_price },
             on: {
-              change: [
-                function($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
-                      return o.selected
-                    })
-                    .map(function(o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.selectedProductId = $event.target.multiple
-                    ? $$selectedVal
-                    : $$selectedVal[0]
-                },
-                function($event) {
-                  return _vm.getProductData()
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
                 }
-              ]
-            }
-          },
-          _vm._l(_vm.products, function(product, index) {
-            return _c(
-              "option",
-              { key: index, domProps: { value: product.id } },
-              [
-                _vm._v(
-                  "\n               " +
-                    _vm._s(
-                      "Product: " +
-                        product.name +
-                        "  Price: $ " +
-                        product.unit_price +
-                        " Index: " +
-                        index
-                    ) +
-                    "\n            "
-                )
-              ]
-            )
-          }),
-          0
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-2" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model.number",
-              value: _vm.unit_price,
-              expression: "unit_price",
-              modifiers: { number: true }
-            }
-          ],
-          staticClass: "form-control form-control-sm",
-          attrs: {
-            type: "number",
-            name: "unit_price",
-            placeholder: "unit_price"
-          },
-          domProps: { value: _vm.unit_price },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
+                _vm.unit_price = _vm._n($event.target.value)
+              },
+              blur: function($event) {
+                return _vm.$forceUpdate()
               }
-              _vm.unit_price = _vm._n($event.target.value)
-            },
-            blur: function($event) {
-              return _vm.$forceUpdate()
             }
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-1" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model.number",
-              value: _vm.quantity,
-              expression: "quantity",
-              modifiers: { number: true }
-            }
-          ],
-          staticClass: "form-control form-control-sm",
-          attrs: {
-            type: "number",
-            min: "1",
-            name: "quantity",
-            placeholder: "Quantity"
-          },
-          domProps: { value: _vm.quantity },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
+          })
+        ]),
+        _vm._v(" "),
+        _c("td", { staticClass: "table-name" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model.number",
+                value: _vm.quantity,
+                expression: "quantity",
+                modifiers: { number: true }
               }
-              _vm.quantity = _vm._n($event.target.value)
+            ],
+            staticClass: "form-control form-control-sm",
+            attrs: {
+              type: "number",
+              min: "1",
+              name: "quantity",
+              placeholder: "Quantity"
             },
-            blur: function($event) {
-              return _vm.$forceUpdate()
+            domProps: { value: _vm.quantity },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.quantity = _vm._n($event.target.value)
+              },
+              blur: function($event) {
+                return _vm.$forceUpdate()
+              }
             }
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-2" }, [
-        _c("p", [
+          })
+        ]),
+        _vm._v(" "),
+        _c("td", { staticClass: "table-name" }, [
           _vm._v(
-            "$ " + _vm._s(_vm._f("currency")(_vm.quantity * _vm.unit_price))
+            "\n            $ " +
+              _vm._s(_vm._f("currency")(_vm.quantity * _vm.unit_price)) +
+              "\n         "
+          )
+        ]),
+        _vm._v(" "),
+        _c("td", { staticClass: "table-name" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-success btn-sm",
+              attrs: {
+                type: "button",
+                disabled: _vm.unit_price <= 0 || _vm.quantity < 1
+              },
+              on: { click: _vm.addLine }
+            },
+            [_vm._v(" Add to list\n            ")]
           )
         ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-2" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-success btn-sm",
-            attrs: { type: "button" },
-            on: { click: _vm.addLine }
-          },
-          [_vm._v(" Add to list ")]
-        )
       ])
     ])
   ])
@@ -38583,16 +38606,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row bg-light mb-2" }, [
-      _c("div", { staticClass: "col-4" }, [_vm._v(" Product Name ")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-2" }, [_vm._v(" Unit Price $ ")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-2" }, [_vm._v(" Quantity ")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-2" }, [_vm._v(" Sub Total $ ")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-2" }, [_vm._v(" Action ")])
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v(" Product Name ")]),
+        _vm._v(" "),
+        _c("th", [_vm._v(" Unit Price $ ")]),
+        _vm._v(" "),
+        _c("th", [_vm._v(" Quantity ")]),
+        _vm._v(" "),
+        _c("th", [_vm._v(" SubTotal $ ")]),
+        _vm._v(" "),
+        _c("th", [_vm._v(" Action ")])
+      ])
     ])
   }
 ]

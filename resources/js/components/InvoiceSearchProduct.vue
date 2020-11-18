@@ -1,47 +1,47 @@
 <template>
-<div>
-   <h5>Select products to include in detail list</h5>
-   <div class="row bg-light mb-2">
-      <div class="col-4"> Product Name </div>
-      <div class="col-2"> Unit Price $ </div>
-      <div class="col-2"> Quantity </div>
-      <div class="col-2"> Sub Total $ </div>
-      <div class="col-2"> Action </div>
-   </div>
+<table class="table table-condensed">
+   <thead>
+      <tr>
+         <th> Product Name </th>
+         <th> Unit Price $ </th>
+         <th> Quantity </th>
+         <th> SubTotal $ </th>
+         <th> Action </th>
+      </tr>
+   </thead>
 
-   <div class="row">
-      <div class="col-4">
-         <select class="form-control form-control-sm" v-model="selectedProductId" @change="getProductData()">
-            <option v-for="(product, index) in products" :key="index" :value="product.id">
-               {{ "Product: " + product.name + "  Price: $ " + product.unit_price + " Index: " + index }}
-            </option>
-         </select>
-      </div>
+   <tbody>
+      <tr>
+         <td class="table-name">
+            <select class="form-control form-control-sm" v-model="selectedProductId" @change="getProductData()">
+               <option v-for="(product, index) in products" :key="index" :value="product.id">
+                  {{ "Product: " + product.name + "  Price: $ " + product.unit_price + " Index: " + index }}
+               </option>
+            </select>
+         </td>
+         <td class="table-name">
+            <input type="number" class="form-control form-control-sm" name="unit_price" v-model.number="unit_price" placeholder="unit_price">
+         </td>
+         <td class="table-name">
+            <input type="number" min="1" class="form-control form-control-sm" name="quantity" v-model.number="quantity" placeholder="Quantity">
+         </td>
+         <td class="table-name">
+            $ {{ quantity * unit_price | currency }}
+         </td>
+         <td class="table-name">
+            <button type="button" class="btn btn-success btn-sm" :disabled="unit_price <= 0 || quantity < 1"
+               @click="addLine"> Add to list
+            </button>
+         </td>
+      </tr>
+   </tbody>
 
-      <div class="col-2">
-         <input type="number" class="form-control form-control-sm" name="unit_price" v-model.number="unit_price" placeholder="unit_price">
-      </div>
-
-      <div class="col-1">
-         <input type="number" min="1" class="form-control form-control-sm" name="quantity" v-model.number="quantity" placeholder="Quantity">
-      </div>
-
-      <div class="col-2">
-         <p>$ {{ quantity * unit_price | currency }}</p>
-      </div>
-
-      <div class="col-2">
-         <button type="button" class="btn btn-success btn-sm" @click="addLine"> Add to list </button>
-      </div>
-
-   </div>
-
-</div>
+</table>
 </template>
 
 <script>
 export default {
-   props: ['formErrors', 'selectedProducts'],
+   props: ['selectedProducts'],
    data() {
       return {
          products: [],
