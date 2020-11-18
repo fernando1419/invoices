@@ -13,6 +13,13 @@
 
             <hr />
 
+            <invoice-search-product
+               :formErrors="errors"
+               :selectedProducts="form.products"
+            ></invoice-search-product>
+
+            <hr />
+
             <!-- <div v-if="errors && errors.products_empty">
                <p class="alert alert-danger">
                   {{ errors.product_empty[0] }}
@@ -20,6 +27,9 @@
             </div> -->
 
             <!-- Invoice Detail (Product Lines) -->
+            <div class="row pl-3">
+               <h5>List of choosen products</h5>
+            </div>
             <div class="row bg-light mb-2">
                <div class="col-5"> Product Name </div>
                <div class="col-2"> Unit Price $ </div>
@@ -35,15 +45,14 @@
             </invoice-product>
 
             <div class="row">
-               <div class="col-6">
-                  <add-invoice-product @addInvoiceItem="addProduct"></add-invoice-product>
-               </div>
                <div class="col-6 pt-2">
-                  <h5 class="float-right"><strong> Total: $ {{ total }} </strong></h5>
+                  <h5 class="float-right"><strong> Total: $ {{ total.toFixed(2) }} </strong></h5>
                </div>
             </div>
 
-            <button type="button" class="btn btn-primary btn-sm float-right" @click="addInvoice"> Create Invoice </button>
+            <button type="button" class="btn btn-primary btn-sm float-right"
+                    @click="addInvoice"
+                    :disabled="form.products.length <= 0"> Create Invoice </button>
 
          </form>
 
@@ -54,7 +63,10 @@
 </template>
 
 <script>
+import InvoiceProduct from './InvoiceProduct.vue';
+import InvoiceSearchProduct from './InvoiceSearchProduct.vue';
 export default {
+  components: { InvoiceProduct, InvoiceSearchProduct },
    data() {
       return {
          form: {
@@ -63,7 +75,7 @@ export default {
             payment_method: 'cash',
             client_id: '',
             products: [
-               { product_id: 1, unit_price: 100, quantity: 5 },
+               // { product_id: 1, unit_price: 100, quantity: 5 },
                // { product_id: '2', price: 200, quantity: 4 },
                // { product_id: '3', price: 300, quantity: 3 },
                // { product_id: '4', price: 400, quantity: 2 },
@@ -89,14 +101,9 @@ export default {
                });
       },
       deleteProduct(index) {
-         if (this.form.products.length > 1) { // always leave 1 invoiceProductLine.
+         // if (this.form.products.length > 1) { // always leave 1 invoiceProductLine.
             this.form.products.splice(index, 1);
-         }
-      },
-      addProduct() {
-         this.form.products.push(
-            { product_id: 0, unit_price: 0, quantity: 0 },
-         );
+         // }
       }
    },
    computed: {
